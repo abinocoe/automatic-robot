@@ -1,0 +1,12 @@
+{
+  "name": "redrobot",
+  "version": "1.0.0",
+  "description": "RB code test",
+  "main": "js/index.js",
+  "scripts": { "test": "jasmine" },
+  "author": "Abigail Coe",
+  "license": "ISC",
+  "devDependencies": {
+    "jasmine": "^3.1.0"
+  }
+}
