@@ -13,6 +13,15 @@ checkInputIsValid = (input) => {
             return false;
         }
         checkMarsInitialise(instructionArray[0])
+        // check remaining arguments for validity, alternating between route instructions
+        // and robot start positions
+        for (let i = 1; i < instructionArray.length; i++) {
+            if (i % 2 === 0) {
+                checkValidRoute()
+            } else {
+                checkValidStartPos()
+            }
+        }
     }
     return false
 }
@@ -26,6 +35,27 @@ checkMarsInitialise = (input) => {
     return false;
 }
 
+checkValidStartPos = (input) => {
+    let startPos = input.split('');
+    // check that start pos is 3 characters &
+    // check that first two chars are numbers &
+    // check that third char is compass letter
+    if (startPos.length === 3 && [startPos[0], startPos[1]].every(checkIsInteger) && checkIsCompassLetter(startPos[2])) {
+        return startPos
+    }
+    return false
+}
+
 checkIsInteger = (number) => {
     return number % 1 === 0;
+}
+
+checkIsCompassLetter = (letter) => {
+    letter.toLowerCase()
+    return letter.length === 1 && letter.match(/[nsew]/i);
+}
+
+checkIsMovementLetter = (letter) => {
+    letter.toLowerCase()
+    return letter.length === 1 && letter.match(/[rlf]/i);
 }
