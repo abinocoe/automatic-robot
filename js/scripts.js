@@ -1,31 +1,34 @@
 getResponse = (input) => {
     let filteredInput = checkInputIsValid(input)
+    let returnedMessage;
     if (!filteredInput) {
-        return "Your input is not in the correct format"
+        returnedMessage = "Your input is not in the correct format"
     } else {
-        calculateEndPos(filteredInput)
+        returnedMessage = calculateEndPos(filteredInput)
     }
-    return true;
+    return returnedMessage;
 }
 
 calculateEndPos = (instructions) => {
     let marsCoOrdinate = instructions[0];
     let currentRobotPos;
     let foundEdges = [];
-    let endPositions = []
+    let endPositions = '';
     for (let j = 1; j < instructions.length; j++) {
         // if element is robot start position rather than movement instructions
+        let status = '';
         if (j % 2 !== 0) {
             currentRobotPos = instructions[j]
         } else {
             let results = moveRobot(instructions[j], currentRobotPos, marsCoOrdinate, foundEdges)
             if (results[3]) {
                 foundEdges.push([results[0], results[1]])
-                results[3] = "LOST"
+                status = "LOST"
             }
-            endPositions.push([results[0], results[1], results[2], results[3]])
+            endPositions += `<h2>${results[0]} ${results[1]} ${results[2]} ${status}</h2>`;
         }
     }
+    return endPositions;
 } 
 
 moveRobot = (routeArray, robotPosition, mars, edges) => {
