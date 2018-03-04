@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "RB code test",
   "main": "js/index.js",
-  "scripts": { "test": "jasmine" },
+  "scripts": {
+    "test": "jasmine"
+  },
   "author": "Abigail Coe",
   "license": "ISC",
   "devDependencies": {
