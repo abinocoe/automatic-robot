@@ -2,7 +2,6 @@ var scripts = require('../js/scripts.js')
 
 describe('getResponse', () => {
     it('should return a value', () => {
-        expect(getResponse()).toBeTruthy();
         expect(getResponse('random')).toBeTruthy();
     })
 })
@@ -47,5 +46,14 @@ describe('checkValidRoute', () => {
     })
     it('should return the argument as an array if all chars are valid', () => {
         expect(checkValidRoute('rflrlf')).toEqual(['r','f','l','r','l','f'])
+    })
+})
+
+describe('moveRobot', () => {
+    it('should return updated robot positions with lost status information', () => {
+        expect(moveRobot(['F','F','F'],['9','10','N'],['10','10'],[])).toEqual([9, 10, "N", true])
+    })
+    it('should not care about route or direction case', () => {
+        expect(moveRobot(['f','F','F'],['9','10','s'],['10','10'],[['9','10']])).toEqual([9, 7, "S", false])
     })
 })
