@@ -18,12 +18,13 @@ checkInputIsValid = (input) => {
         // and robot start positions
         for (let i = 1; i < instructionArray.length; i++) {
             if (i % 2 === 0) {
-                validatedInput.push(checkValidRoute(instructionArray[1]))
+                validatedInput.push(checkValidRoute(instructionArray[i]))
             } else {
-                validatedInput.push(checkValidStartPos(instructionArray[1]))
+                validatedInput.push(checkValidStartPos(instructionArray[i]))
             }
         }
     }
+    console.log(validatedInput)
     // if all elements are returned valid, return the organised array, else
     return validatedInput.indexOf(false) === -1 ? validatedInput : false;
 }
