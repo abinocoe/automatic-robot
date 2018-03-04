@@ -27,20 +27,20 @@ checkInputIsValid = (input) => {
 }
 
 checkMarsInitialise = (input) => {
-    let marsSize = input.split('');
+    let marsSize = input.split(' ');
     // check that mars size arguments are 2 long and both numbers
-    if (marsSize.length === 2 && marsSize.every(checkIsInteger)) {
+    if (marsSize.length === 2 && marsSize.every(checkIsInteger) && marsSize.every(checkBelowFifty)) {
         return marsSize;
     }
     return false;
 }
 
 checkValidStartPos = (input) => {
-    let startPos = input.split('');
+    let startPos = input.split(' ');
     // check that start pos is 3 characters &
     // check that first two chars are numbers &
     // check that third char is compass letter
-    if (startPos.length === 3 && [startPos[0], startPos[1]].every(checkIsInteger) && checkIsCompassLetter(startPos[2])) {
+    if (startPos.length === 3 && [startPos[0], startPos[1]].every(checkIsInteger) && checkIsCompassLetter(startPos[2]) && [startPos[0], startPos[1]].every(checkBelowFifty)) {
         return startPos
     }
     return false
@@ -58,6 +58,10 @@ checkValidRoute = (input) => {
 
 checkIsInteger = (number) => {
     return number % 1 === 0;
+}
+
+checkBelowFifty = (number) => {
+    return number <= 50;
 }
 
 checkIsCompassLetter = (letter) => {
