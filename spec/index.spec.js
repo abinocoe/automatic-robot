@@ -34,3 +34,12 @@ describe('checkValidStartPos', () => {
         expect(checkValidStartPos('11n')).toEqual(['1','1','n'])
     })
 })
+
+describe('checkValidRoute', () => {
+    it('should return false if argument contains non valid characters', () => {
+        expect(checkValidRoute('rflrg')).toEqual(false)
+    })
+    it('should return the argument as an array if all chars are valid', () => {
+        expect(checkValidRoute('rflrlf')).toEqual(['r','f','l','r','l','f'])
+    })
+})
