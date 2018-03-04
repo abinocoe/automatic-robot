@@ -1,9 +1,105 @@
 getResponse = (input) => {
-    if (!checkInputIsValid(input)) {
+    let filteredInput = checkInputIsValid(input)
+    if (!filteredInput) {
         return "Your input is not in the correct format"
+    } else {
+        calculateEndPos(filteredInput)
     }
     return true;
 }
+
+calculateEndPos = (instructions) => {
+    let marsCoOrdinate = instructions[0];
+    let currentRobotPos;
+    let foundEdges = [];
+    let endPositions = []
+    for (let j = 1; j < instructions.length; j++) {
+        // if element is robot start position rather than movement instructions
+        if (j % 2 !== 0) {
+            currentRobotPos = instructions[j]
+        } else {
+            let results = moveRobot(instructions[j], currentRobotPos, marsCoOrdinate, foundEdges)
+            if (results[3]) {
+                foundEdges.push([results[0], results[1]])
+                results[3] = "LOST"
+            }
+            endPositions.push([results[0], results[1], results[2], results[3]])
+        }
+    }
+} 
+
+moveRobot = (routeArray, robotPosition, mars, edges) => {
+    let robotX = Number(robotPosition[0])
+    let robotY = Number(robotPosition[1])
+    const directions = ['N', 'E', 'S', 'W']
+    let robotD = directions.indexOf(robotPosition[2].toUpperCase())
+    let isLost = false;
+    for (let k = 0; k < routeArray.length; k++) {
+        let currentInstruction = routeArray[k].toUpperCase()
+        // check type of instruction (turn or move)
+        switch (currentInstruction) {
+            case 'L': 
+                robotD > 0 ? robotD -- : robotD = 3
+                break;
+            case 'R':
+                robotD < 3 ? robotD ++ : robotD = 0
+                break;
+            case 'F':
+                if (robotD === 0) {
+                    if (robotY + 1 <= mars[1]) {
+                        robotY++
+                    } else {
+                        if (!checkEdges(robotX, robotY, edges)) {
+                            isLost = true;
+                        }
+                    }
+                }
+                if (robotD === 1) {
+                    if (robotX + 1 <= mars[0]) {
+                        robotX++
+                    } else {
+                        if (!checkEdges(robotX, robotY, edges)) {
+                            isLost = true;
+                        }
+                    }
+                }
+                if (robotD === 2) {
+                    if (robotY - 1 >= 0) {
+                        robotY--
+                    } else {
+                        if (!checkEdges(robotX, robotY, edges)) {
+                            isLost = true;
+                        }
+                    }
+                }
+                if (robotD === 3) {
+                    if (robotX - 1 >= 0) {
+                        robotX--
+                    } else {
+                        if (!checkEdges(robotX, robotY, edges)) {
+                            isLost = true;
+                        }
+                    }
+                }
+                break;
+        }
+        if (isLost) break;
+    }
+    return [robotX, robotY, directions[robotD], isLost]
+}
+
+checkEdges = (posX, posY, edges) => {
+    let match = false
+    if (edges.length > 0) {
+        for (let l = 0; l < edges.length; l++) {
+            if (edges[l][0] === posX && edges[l][1] === posY) {
+                return match = true;
+            }
+        }
+    }
+    return match;
+}
+
 
 checkInputIsValid = (input) => {
     let validatedInput = []
@@ -24,7 +120,6 @@ checkInputIsValid = (input) => {
             }
         }
     }
-    console.log(validatedInput)
     // if all elements are returned valid, return the organised array, else
     return validatedInput.indexOf(false) === -1 ? validatedInput : false;
 }
