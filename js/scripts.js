@@ -6,24 +6,26 @@ getResponse = (input) => {
 }
 
 checkInputIsValid = (input) => {
+    let validatedInput = []
     if (input) {
         // split instructions into array and remove extra whitespace
         let instructionArray = input.trim().split(/\n/).filter((item) => item !== "");
         if (instructionArray.length < 3) {
             return false;
         }
-        checkMarsInitialise(instructionArray[0])
+        validatedInput.push(checkMarsInitialise(instructionArray[0]))
         // check remaining arguments for validity, alternating between route instructions
         // and robot start positions
         for (let i = 1; i < instructionArray.length; i++) {
             if (i % 2 === 0) {
-                checkValidRoute()
+                validatedInput.push(checkValidRoute(instructionArray[1]))
             } else {
-                checkValidStartPos()
+                validatedInput.push(checkValidStartPos(instructionArray[1]))
             }
         }
     }
-    return false
+    // if all elements are returned valid, return the organised array, else
+    return validatedInput.indexOf(false) === -1 ? validatedInput : false;
 }
 
 checkMarsInitialise = (input) => {
