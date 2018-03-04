@@ -1,7 +1,12 @@
 var robotMapper = robotMapper || {}
 
 robotMapper.setup = () => {
-    console.log('js in here')
+    this.$instructionsInput = $('#instructions-input');
+    $('#instructions-form').on('submit', robotMapper.handleSubmit.bind(this))
+}
+
+robotMapper.handleSubmit = (e) => {
+    e.preventDefault();
 }
 
 $(() => robotMapper.setup())
