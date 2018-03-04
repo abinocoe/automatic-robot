@@ -46,6 +46,16 @@ checkValidStartPos = (input) => {
     return false
 }
 
+checkValidRoute = (input) => {
+    let route = input.split('');
+    // check that route is less that 100 chars
+    // check that route is comprised only of valid movement letters
+    if (route.length <= 100 && route.every(checkIsMovementLetter)) {
+        return route;
+    }
+    return false;
+}
+
 checkIsInteger = (number) => {
     return number % 1 === 0;
 }
