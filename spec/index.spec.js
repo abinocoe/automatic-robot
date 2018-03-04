@@ -22,3 +22,15 @@ describe('checkMarsInitialise', () => {
         expect(checkMarsInitialise('1A')).toEqual(false)
     })
 })
+
+describe('checkValidStartPos', () => {
+    it('should return false if argument is not 3 characters long', () => {
+        expect(checkValidStartPos('111E')).toEqual(false)
+    })
+    it('should return false if argument is not two numbers followed by a compass direction', () => {
+        expect(checkValidStartPos('1e1')).toEqual(false)
+    })
+    it('should return argument passed as array if valid', () => {
+        expect(checkValidStartPos('11n')).toEqual(['1','1','n'])
+    })
+})
