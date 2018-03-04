@@ -7,8 +7,8 @@ getResponse = (input) => {
 
 checkInputIsValid = (input) => {
     if (input) {
-        // split instructions into array
-        let instructionArray = input.trim().split(/\n/);
+        // split instructions into array and remove extra whitespace
+        let instructionArray = input.trim().split(/\n/).filter((item) => item !== "");
         if (instructionArray.length < 3) {
             return false;
         }
