@@ -1,7 +1,7 @@
 #RedRobot
 
 ##To run:
-Copy path of index.js and paste into your browser. Chrome is recommended :) 
+Copy path of index.html and paste into your browser. Chrome is recommended :) 
 
 Instructions are to be added in one go in the text area. Enter to submit.
 
