@@ -7,6 +7,7 @@ robotMapper.setup = () => {
 
 robotMapper.handleSubmit = (e) => {
     e.preventDefault();
+    getResponse(this.$instructionsInput.val());
 }
 
 $(() => robotMapper.setup())
