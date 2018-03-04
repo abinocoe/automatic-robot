@@ -16,22 +16,28 @@ describe('checkInputIsValid', () => {
 
 describe('checkMarsInitialise', () => {
     it('should return false if argument is not 2 characters long', () => {
-        expect(checkMarsInitialise('234')).toEqual(false)
+        expect(checkMarsInitialise('23 4 6')).toEqual(false)
     })
     it('should return false if arguments are not solely integers', () => {
-        expect(checkMarsInitialise('1A')).toEqual(false)
+        expect(checkMarsInitialise('1 A')).toEqual(false)
+    })
+    it('should return false if any co-ordinate is above fifty', () => {
+        expect(checkMarsInitialise('51 30')).toEqual(false)
     })
 })
 
 describe('checkValidStartPos', () => {
     it('should return false if argument is not 3 characters long', () => {
-        expect(checkValidStartPos('111E')).toEqual(false)
+        expect(checkValidStartPos('111 E')).toEqual(false)
     })
     it('should return false if argument is not two numbers followed by a compass direction', () => {
-        expect(checkValidStartPos('1e1')).toEqual(false)
+        expect(checkValidStartPos('1 e 1')).toEqual(false)
     })
     it('should return argument passed as array if valid', () => {
-        expect(checkValidStartPos('11n')).toEqual(['1','1','n'])
+        expect(checkValidStartPos('1 1 n')).toEqual(['1','1','n'])
+    })
+    it('should return false if any co-ordinate is above fifty', () => {
+        expect(checkValidStartPos('51 49 e')).toEqual(false)
     })
 })
 
