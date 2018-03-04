@@ -2,7 +2,7 @@ getResponse = (input) => {
     let filteredInput = checkInputIsValid(input)
     let returnedMessage;
     if (!filteredInput) {
-        returnedMessage = "Your input is not in the correct format"
+        returnedMessage = "<h1>Your input is not in the correct format</h1>"
     } else {
         returnedMessage = calculateEndPos(filteredInput)
     }

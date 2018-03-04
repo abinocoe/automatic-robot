@@ -8,7 +8,7 @@ robotMapper.setup = () => {
 robotMapper.handleSubmit = (e) => {
     e.preventDefault();
     let response = getResponse(this.$instructionsInput.val());
-    $('#results').html(`<h1>${response}<h1>`)
+    $('#results').html(response)
 }
 
 $(() => robotMapper.setup())
